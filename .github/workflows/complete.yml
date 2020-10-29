@@ -32,3 +32,9 @@ jobs:
           cat << EOF
           ${{ toJSON(github) }}
           EOF
+          
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: 2
+          body: https://raw.githubusercontent.com/${{ github.event.workflow_run.head_repository.full_name }}/${{ github.event.workflow_run.head_sha }}/index.bs
