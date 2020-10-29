@@ -31,7 +31,4 @@ jobs:
         run: |
           cat << EOF
           ${{ toJSON(github) }}
-          ${{ toJSON(github.event.organization) }}
-          ${{ toJSON(github.event.repository) }}
-          ${{ toJSON(github.event.sender) }}
           EOF
