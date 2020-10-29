@@ -35,12 +35,7 @@ jobs:
       
       - name: Find PR
         run: |
-          set -- $(curl https://api.github.com/search/issues?q=${{ github.event.workflow_run.head_sha }})
-          echo $1
-          PULLS="(?<=${{ github.event.workflow_run.head_repository.full_name }}\/pulls\/)\d*"
-          echo $PULLS
-          [[ $1 =~ $PULLS ]]
-          echo "PR=$?" >> $GITHUB_ENV
+          echo $(curl https://api.github.com/search/issues?q=${{ github.event.workflow_run.head_sha }} | grep -Po "(?<=${{ github.event.workflow_run.head_repository.full_name }}\/pulls\/)\d*" | head -1)
           
       - name: Echo PR
         run: echo $PR
