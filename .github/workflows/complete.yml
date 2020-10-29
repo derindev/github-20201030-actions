@@ -39,11 +39,11 @@ jobs:
           grep -Po "(?<=${{ github.event.workflow_run.repository.full_name }}\/pulls\/)\d*" | head -1)
           echo "PR=$PR" >> $GITHUB_ENV
           
-      - name: Echo PR
-        run: echo $PR
-          
-      - name: Create comment
+      - name: Comment previews
         uses: peter-evans/create-or-update-comment@v1
         with:
           issue-number: ${{ env.PR }}
-          body: https://raw.githubusercontent.com/${{ github.event.workflow_run.head_repository.full_name }}/${{ github.event.workflow_run.head_sha }}/index.bs
+          body: |
+            Previews as seen at the time of this comment:
+            [WebGPU](https://api.csswg.org/bikeshed/?url=https://raw.githubusercontent.com/${{ github.event.workflow_run.head_repository.full_name }}/${{ github.event.workflow_run.head_sha }}/spec/index.bs)
+            [WGSL](https://api.csswg.org/bikeshed/?url=https://raw.githubusercontent.com/${{ github.event.workflow_run.head_repository.full_name }}/${{ github.event.workflow_run.head_sha }}/wgsl/index.bs)
